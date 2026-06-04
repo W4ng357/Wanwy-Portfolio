@@ -1,0 +1,2132 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio học tập môn Nhập môn Công nghệ số và Ứng dụng Trí tuệ nhân tạo - Phạm Quốc Quân, UET-VNU">
+    <title>Portfolio Học Tập — Phạm Quốc Quân | UET-VNU</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* ═══════════════════════════════════════════
+           CSS CUSTOM PROPERTIES & DESIGN TOKENS
+           ═══════════════════════════════════════════ */
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #101018;
+            --bg-card: rgba(18, 18, 30, 0.7);
+            --bg-card-hover: rgba(25, 25, 42, 0.85);
+            --bg-glass: rgba(255, 255, 255, 0.03);
+            --bg-glass-border: rgba(255, 255, 255, 0.06);
+
+            --accent-primary: #6c5ce7;
+            --accent-secondary: #a29bfe;
+            --accent-glow: rgba(108, 92, 231, 0.25);
+            --accent-gradient: linear-gradient(135deg, #6c5ce7, #a29bfe, #74b9ff);
+
+            --green: #00cec9;
+            --green-glow: rgba(0, 206, 201, 0.2);
+            --orange: #fdcb6e;
+            --orange-glow: rgba(253, 203, 110, 0.2);
+            --pink: #fd79a8;
+            --pink-glow: rgba(253, 121, 168, 0.2);
+            --blue: #74b9ff;
+            --blue-glow: rgba(116, 185, 255, 0.2);
+            --red: #ff6b6b;
+
+            --text-primary: #e8e8f0;
+            --text-secondary: #9e9eb8;
+            --text-muted: #6c6c88;
+            --text-bright: #ffffff;
+
+            --border: rgba(255, 255, 255, 0.06);
+            --border-hover: rgba(255, 255, 255, 0.12);
+            --border-accent: rgba(108, 92, 231, 0.3);
+
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
+            --shadow-md: 0 4px 20px rgba(0,0,0,0.4);
+            --shadow-lg: 0 8px 40px rgba(0,0,0,0.5);
+            --shadow-glow: 0 0 30px var(--accent-glow);
+
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+        }
+
+        /* ═══════════════════════════════════════════
+           BASE RESETS & GLOBAL STYLES
+           ═══════════════════════════════════════════ */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        ::selection {
+            background: var(--accent-primary);
+            color: white;
+        }
+
+        /* ═══════════════════════════════════════════
+           ANIMATED BACKGROUND
+           ═══════════════════════════════════════════ */
+        .bg-gradient {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            background: var(--bg-primary);
+        }
+
+        .bg-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.15;
+            z-index: -1;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .bg-orb--1 {
+            width: 600px;
+            height: 600px;
+            background: var(--accent-primary);
+            top: -10%;
+            left: -5%;
+            animation-delay: 0s;
+        }
+
+        .bg-orb--2 {
+            width: 500px;
+            height: 500px;
+            background: var(--green);
+            bottom: -10%;
+            right: -5%;
+            animation-delay: -7s;
+            animation-duration: 25s;
+        }
+
+        .bg-orb--3 {
+            width: 400px;
+            height: 400px;
+            background: var(--pink);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: -14s;
+            animation-duration: 30s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(30px, -40px) scale(1.05); }
+            50% { transform: translate(-20px, 20px) scale(0.95); }
+            75% { transform: translate(40px, 30px) scale(1.02); }
+        }
+
+        /* ═══════════════════════════════════════════
+           NAVBAR
+           ═══════════════════════════════════════════ */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 0 24px;
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            background: rgba(10, 10, 15, 0.75);
+            border-bottom: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled {
+            background: rgba(10, 10, 15, 0.92);
+            box-shadow: var(--shadow-md);
+        }
+
+        .navbar__inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+
+        .navbar__brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-bright);
+        }
+
+        .navbar__logo {
+            width: 36px;
+            height: 36px;
+            background: var(--accent-gradient);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1rem;
+            color: white;
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .navbar__name {
+            font-weight: 700;
+            font-size: 1.05rem;
+            letter-spacing: -0.02em;
+        }
+
+        .navbar__links {
+            display: flex;
+            gap: 4px;
+            list-style: none;
+        }
+
+        .navbar__link {
+            position: relative;
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.88rem;
+            font-weight: 500;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-family: var(--font-sans);
+        }
+
+        .navbar__link:hover {
+            color: var(--text-bright);
+            background: var(--bg-glass);
+        }
+
+        .navbar__link.active {
+            color: var(--accent-secondary);
+            background: rgba(108, 92, 231, 0.1);
+        }
+
+        .navbar__link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 16px;
+            right: 16px;
+            height: 2px;
+            background: var(--accent-gradient);
+            border-radius: 2px;
+        }
+
+        .navbar__mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .navbar__mobile-toggle { display: block; }
+            .navbar__links {
+                display: none;
+                position: absolute;
+                top: 64px;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background: rgba(10, 10, 15, 0.95);
+                backdrop-filter: blur(20px);
+                border-bottom: 1px solid var(--border);
+                padding: 12px;
+            }
+            .navbar__links.open { display: flex; }
+        }
+
+        /* ═══════════════════════════════════════════
+           PAGE SECTIONS
+           ═══════════════════════════════════════════ */
+        .page-section {
+            display: none;
+            min-height: calc(100vh - 64px);
+            padding-top: 88px;
+            padding-bottom: 60px;
+        }
+
+        .page-section.active {
+            display: block;
+            animation: fadeSlideIn 0.5s ease-out;
+        }
+
+        @keyframes fadeSlideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ═══════════════════════════════════════════
+           HERO SECTION (GIỚI THIỆU)
+           ═══════════════════════════════════════════ */
+        .hero {
+            text-align: center;
+            padding: 60px 0 40px;
+        }
+
+        .hero__badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(108, 92, 231, 0.1);
+            border: 1px solid var(--border-accent);
+            border-radius: 50px;
+            padding: 6px 18px;
+            font-size: 0.8rem;
+            color: var(--accent-secondary);
+            font-weight: 500;
+            margin-bottom: 24px;
+        }
+
+        .hero__badge .pulse {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--green);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.5); }
+        }
+
+        .hero__title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.15;
+            margin-bottom: 16px;
+            color: var(--text-bright);
+        }
+
+        .hero__title .gradient-text {
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero__subtitle {
+            font-size: clamp(1rem, 2vw, 1.15rem);
+            color: var(--text-secondary);
+            max-width: 650px;
+            margin: 0 auto 40px;
+            font-weight: 400;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 48px;
+        }
+
+        .stat-item {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 16px 28px;
+            text-align: center;
+            min-width: 140px;
+            transition: var(--transition);
+        }
+
+        .stat-item:hover {
+            border-color: var(--border-accent);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .stat-item__number {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        .stat-item__label {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 2px;
+        }
+
+        /* Info Cards Grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .info-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--accent-gradient);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .info-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .info-card:hover::before {
+            opacity: 1;
+        }
+
+        .info-card__icon {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            font-size: 1.3rem;
+        }
+
+        .info-card__icon--purple { background: rgba(108, 92, 231, 0.15); color: var(--accent-secondary); }
+        .info-card__icon--green { background: var(--green-glow); color: var(--green); }
+        .info-card__icon--pink { background: var(--pink-glow); color: var(--pink); }
+        .info-card__icon--blue { background: var(--blue-glow); color: var(--blue); }
+
+        .info-card__title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-bright);
+            margin-bottom: 10px;
+            letter-spacing: -0.01em;
+        }
+
+        .info-card__text {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+        }
+
+        /* Skills Section */
+        .skills-section {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+        }
+
+        .skills-section__title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-bright);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            transition: var(--transition);
+            cursor: default;
+        }
+
+        .skill-chip:hover {
+            border-color: var(--accent-primary);
+            color: var(--text-bright);
+            background: rgba(108, 92, 231, 0.08);
+            transform: translateY(-1px);
+        }
+
+        .skill-chip__dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* Personal Bio Card */
+        .bio-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            margin-bottom: 28px;
+            display: flex;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .bio-card__avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--accent-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 800;
+            color: white;
+            flex-shrink: 0;
+            box-shadow: 0 0 25px var(--accent-glow);
+        }
+
+        .bio-card__info h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-bright);
+            margin-bottom: 4px;
+        }
+
+        .bio-card__info .bio-detail {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            margin-bottom: 3px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .bio-card__info .bio-detail span.label {
+            color: var(--text-muted);
+            font-weight: 500;
+            min-width: 70px;
+        }
+
+        @media (max-width: 600px) {
+            .bio-card { flex-direction: column; text-align: center; }
+            .bio-card__info .bio-detail { justify-content: center; }
+        }
+
+        /* ═══════════════════════════════════════════
+           PROJECTS SECTION (DỰ ÁN)
+           ═══════════════════════════════════════════ */
+        .section-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .section-header__label {
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent-secondary);
+            margin-bottom: 8px;
+        }
+
+        .section-header__title {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 800;
+            color: var(--text-bright);
+            letter-spacing: -0.02em;
+        }
+
+        .section-header__desc {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 10px auto 0;
+        }
+
+        /* Project Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--accent-primary), var(--green), var(--pink), var(--blue), var(--orange), var(--accent-secondary), var(--green));
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 32px;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -33px;
+            top: 28px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 3px solid var(--bg-primary);
+            z-index: 2;
+        }
+
+        .timeline-dot::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 2px solid;
+            opacity: 0.3;
+        }
+
+        /* Project Card */
+        .project-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .project-card:hover {
+            border-color: var(--border-hover);
+            box-shadow: var(--shadow-md);
+            transform: translateX(4px);
+        }
+
+        .project-card__header {
+            padding: 28px 28px 0;
+        }
+
+        .project-card__number {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 3px 10px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+
+        .project-card__title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-bright);
+            margin-bottom: 12px;
+            letter-spacing: -0.01em;
+        }
+
+        .project-card__summary {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 18px;
+            line-height: 1.65;
+        }
+
+        .project-card__objective {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--green);
+            background: var(--green-glow);
+            border: 1px solid rgba(0, 206, 201, 0.15);
+            border-radius: 50px;
+            padding: 5px 14px;
+            margin-bottom: 16px;
+        }
+
+        /* Highlight callout */
+        .highlight-callout {
+            background: rgba(108, 92, 231, 0.06);
+            border-left: 3px solid var(--accent-primary);
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            padding: 14px 18px;
+            margin-bottom: 18px;
+        }
+
+        .highlight-callout__label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--accent-secondary);
+            margin-bottom: 4px;
+        }
+
+        .highlight-callout__text {
+            font-size: 0.88rem;
+            color: var(--text-bright);
+            font-weight: 500;
+            line-height: 1.5;
+        }
+
+        /* Tags */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding: 0 28px 20px;
+        }
+
+        .tag {
+            font-size: 0.72rem;
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .tag:hover {
+            border-color: var(--accent-primary);
+            color: var(--accent-secondary);
+        }
+
+        /* Download button */
+        .download-row {
+            padding: 0 28px 20px;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 20px;
+            background: rgba(108, 92, 231, 0.1);
+            border: 1px solid var(--border-accent);
+            border-radius: 50px;
+            color: var(--accent-secondary);
+            font-family: var(--font-sans);
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .download-btn:hover {
+            background: rgba(108, 92, 231, 0.2);
+            border-color: var(--accent-primary);
+            color: var(--text-bright);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+
+        .download-btn svg {
+            width: 15px;
+            height: 15px;
+            flex-shrink: 0;
+        }
+
+        .download-btn__size {
+            font-weight: 400;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+        }
+
+        /* Expandable details */
+        .project-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .project-details.expanded {
+            max-height: 600px;
+        }
+
+        .project-details__inner {
+            padding: 0 28px 8px;
+            border-top: 1px solid var(--border);
+        }
+
+        .detail-list {
+            list-style: none;
+            padding: 16px 0 0;
+        }
+
+        .detail-list li {
+            position: relative;
+            padding-left: 20px;
+            font-size: 0.88rem;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .detail-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 9px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent-primary);
+        }
+
+        /* Toggle button */
+        .toggle-btn {
+            width: 100%;
+            padding: 14px 28px;
+            background: none;
+            border: none;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-family: var(--font-sans);
+            font-size: 0.84rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: var(--transition);
+        }
+
+        .toggle-btn:hover {
+            color: var(--text-bright);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .toggle-btn .chevron {
+            transition: transform var(--transition);
+            width: 16px;
+            height: 16px;
+        }
+
+        .toggle-btn.open .chevron {
+            transform: rotate(180deg);
+        }
+
+        /* Color variants for timeline dots and card numbers */
+        .color-1 { --item-color: #6c5ce7; }
+        .color-2 { --item-color: #00cec9; }
+        .color-3 { --item-color: #fd79a8; }
+        .color-4 { --item-color: #74b9ff; }
+        .color-5 { --item-color: #fdcb6e; }
+        .color-6 { --item-color: #e17055; }
+        .color-7 { --item-color: #a29bfe; }
+
+        .timeline-item .timeline-dot {
+            background: var(--item-color);
+        }
+        .timeline-item .timeline-dot::after {
+            border-color: var(--item-color);
+        }
+        .timeline-item .project-card__number {
+            background: color-mix(in srgb, var(--item-color) 15%, transparent);
+            color: var(--item-color);
+        }
+        .timeline-item .highlight-callout {
+            border-left-color: var(--item-color);
+            background: color-mix(in srgb, var(--item-color) 6%, transparent);
+        }
+        .timeline-item .highlight-callout__label {
+            color: var(--item-color);
+        }
+        .timeline-item .detail-list li::before {
+            background: var(--item-color);
+        }
+
+        /* ═══════════════════════════════════════════
+           SUMMARY SECTION (TỔNG KẾT)
+           ═══════════════════════════════════════════ */
+        .reflection-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            margin-bottom: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .reflection-card::before {
+            content: '"';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            font-size: 8rem;
+            font-weight: 900;
+            color: rgba(108, 92, 231, 0.06);
+            line-height: 1;
+            pointer-events: none;
+        }
+
+        .reflection-card__title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-bright);
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .reflection-card__text {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        /* Insight Cards */
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .insight-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .insight-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+        }
+
+        .insight-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--border-hover);
+            box-shadow: var(--shadow-md);
+        }
+
+        .insight-card--green::before { background: var(--green); }
+        .insight-card--blue::before { background: var(--blue); }
+        .insight-card--orange::before { background: var(--orange); }
+
+        .insight-card__icon {
+            font-size: 1.5rem;
+            margin-bottom: 14px;
+        }
+
+        .insight-card__title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .insight-card--green .insight-card__title { color: var(--green); }
+        .insight-card--blue .insight-card__title { color: var(--blue); }
+        .insight-card--orange .insight-card__title { color: var(--orange); }
+
+        .insight-card__text {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Skills Progress */
+        .progress-section {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+        }
+
+        .progress-section__title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-bright);
+            margin-bottom: 24px;
+        }
+
+        .progress-item {
+            margin-bottom: 20px;
+        }
+
+        .progress-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .progress-item__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .progress-item__label {
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .progress-item__value {
+            font-size: 0.8rem;
+            font-weight: 600;
+            font-family: var(--font-mono);
+            color: var(--accent-secondary);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar__fill {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 0;
+        }
+
+        .progress-bar__fill--purple { background: var(--accent-gradient); }
+        .progress-bar__fill--green { background: linear-gradient(90deg, var(--green), #55efc4); }
+        .progress-bar__fill--pink { background: linear-gradient(90deg, var(--pink), #fab1a0); }
+        .progress-bar__fill--blue { background: linear-gradient(90deg, var(--blue), #81ecec); }
+        .progress-bar__fill--orange { background: linear-gradient(90deg, var(--orange), #ffeaa7); }
+
+        /* ═══════════════════════════════════════════
+           FOOTER
+           ═══════════════════════════════════════════ */
+        .site-footer {
+            border-top: 1px solid var(--border);
+            padding: 32px 24px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .site-footer__text {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .site-footer__text span {
+            color: var(--text-secondary);
+        }
+
+        .site-footer__tech {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            margin-top: 6px;
+            opacity: 0.6;
+        }
+
+        /* ═══════════════════════════════════════════
+           SCROLL REVEAL ANIMATION
+           ═══════════════════════════════════════════ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Stagger children */
+        .reveal-stagger > .reveal:nth-child(1) { transition-delay: 0.05s; }
+        .reveal-stagger > .reveal:nth-child(2) { transition-delay: 0.1s; }
+        .reveal-stagger > .reveal:nth-child(3) { transition-delay: 0.15s; }
+        .reveal-stagger > .reveal:nth-child(4) { transition-delay: 0.2s; }
+
+        /* ═══════════════════════════════════════════
+           RESPONSIVE
+           ═══════════════════════════════════════════ */
+        @media (max-width: 600px) {
+            .stats-bar { gap: 10px; }
+            .stat-item { min-width: 100px; padding: 12px 16px; }
+            .stat-item__number { font-size: 1.4rem; }
+            .info-grid { grid-template-columns: 1fr; }
+            .timeline { padding-left: 30px; }
+            .timeline::before { left: 10px; }
+            .timeline-dot { left: -27px; }
+            .project-card__header, .tags { padding-left: 20px; padding-right: 20px; }
+            .toggle-btn { padding-left: 20px; padding-right: 20px; }
+            .project-details__inner { padding-left: 20px; padding-right: 20px; }
+            .insights-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Print Button */
+        .print-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 14px;
+            background: rgba(108, 92, 231, 0.12);
+            border: 1px solid var(--border-accent);
+            border-radius: var(--radius-sm);
+            color: var(--accent-secondary);
+            font-family: var(--font-sans);
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .print-btn:hover {
+            background: rgba(108, 92, 231, 0.25);
+            color: var(--text-bright);
+        }
+
+        .print-btn svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        /* ═══════════════════════════════════════════
+           PRINT STYLES — Show all pages for PDF export
+           ═══════════════════════════════════════════ */
+        @media print {
+            /* Force white background everywhere */
+            html, body {
+                background: #ffffff !important;
+                background-color: #ffffff !important;
+                color: #1a1a2e !important;
+            }
+
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+
+            /* White background on all containers */
+            .container,
+            .hero,
+            .page-section,
+            main,
+            section {
+                background: #ffffff !important;
+                background-color: #ffffff !important;
+            }
+
+            /* Hide non-essential elements */
+            .navbar,
+            .bg-gradient,
+            .bg-orb,
+            .toggle-btn,
+            .print-btn,
+            .navbar__mobile-toggle {
+                display: none !important;
+            }
+
+            /* Show ALL page sections stacked */
+            .page-section {
+                display: block !important;
+                opacity: 1 !important;
+                transform: none !important;
+                padding-top: 20px !important;
+                min-height: auto !important;
+            }
+
+            /* Page breaks between sections */
+            #page-projects {
+                page-break-before: always;
+            }
+
+            #page-summary {
+                page-break-before: always;
+            }
+
+            /* Show all reveals */
+            .reveal {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+
+            /* Expand all detail sections */
+            .project-details {
+                max-height: none !important;
+                overflow: visible !important;
+            }
+
+            .project-details__inner {
+                border-top: 1px solid #e0e0e8;
+                padding-top: 12px;
+            }
+
+            /* Cards styling for print */
+            .info-card,
+            .project-card,
+            .reflection-card,
+            .insight-card,
+            .bio-card,
+            .skills-section,
+            .progress-section,
+            .stat-item {
+                background: #f8f9fa !important;
+                border: 1px solid #e0e0e8 !important;
+                backdrop-filter: none !important;
+                box-shadow: none !important;
+            }
+
+            /* Progress bars — show at full width */
+            .progress-bar__fill {
+                transition: none !important;
+            }
+
+            .progress-bar {
+                background: #e8e8f0 !important;
+            }
+
+            /* Download buttons — show as text links */
+            .download-btn {
+                color: #6c5ce7 !important;
+                border-color: #6c5ce7 !important;
+                background: transparent !important;
+            }
+
+            /* Tags */
+            .tag {
+                background: #f0f0f5 !important;
+                color: #4a4a6a !important;
+                border-color: #d0d0d8 !important;
+            }
+
+            .project-card__objective {
+                background: #e8f8f7 !important;
+                color: #00897b !important;
+                border-color: #b2dfdb !important;
+            }
+
+            .highlight-callout {
+                background: #f3f0ff !important;
+                border-left-color: #6c5ce7 !important;
+            }
+
+            .highlight-callout__label {
+                color: #6c5ce7 !important;
+            }
+
+            .highlight-callout__text {
+                color: #4a4a6a !important;
+            }
+
+            /* All text colors */
+            .hero__title,
+            .section-header__title,
+            .info-card__title,
+            .project-card__title,
+            .reflection-card__title,
+            .insight-card__title,
+            .progress-section__title,
+            .bio-card__info h3 {
+                color: #0a0a0f !important;
+            }
+
+            .hero__subtitle,
+            .section-header__desc,
+            .hero__badge,
+            .info-card__text,
+            .project-card__summary,
+            .reflection-card__text,
+            .insight-card__text,
+            .bio-card__info .bio-detail,
+            .detail-list li {
+                color: #4a4a6a !important;
+            }
+
+            .project-card__number,
+            .stat-item__label,
+            .progress-item__label,
+            .bio-card__info .bio-detail span.label {
+                color: #6c6c88 !important;
+            }
+
+            .skills-section__title {
+                color: #0a0a0f !important;
+            }
+
+            .skill-chip {
+                background: #f0f0f5 !important;
+                color: #4a4a6a !important;
+                border-color: #d0d0d8 !important;
+            }
+
+            /* Avoid page breaks inside cards */
+            .project-card,
+            .info-card,
+            .reflection-card,
+            .insight-card {
+                page-break-inside: avoid;
+            }
+
+            .timeline-item {
+                page-break-inside: avoid;
+            }
+
+            /* Timeline line & dot */
+            .timeline::before {
+                background: #d0d0d8 !important;
+            }
+
+            .timeline-dot {
+                border-color: #ffffff !important;
+            }
+
+            /* Footer */
+            .site-footer {
+                background: #ffffff !important;
+                border-top-color: #e0e0e8 !important;
+            }
+
+            .site-footer__text, 
+            .site-footer__text span {
+                color: #4a4a6a !important;
+            }
+
+            .site-footer__tech {
+                color: #6c6c88 !important;
+            }
+
+            /* Hero gradient text — use solid color for print */
+            .hero__title .gradient-text {
+                background: none !important;
+                -webkit-background-clip: unset !important;
+                -webkit-text-fill-color: #6c5ce7 !important;
+            }
+
+            .stat-item__number {
+                background: none !important;
+                -webkit-background-clip: unset !important;
+                -webkit-text-fill-color: #6c5ce7 !important;
+            }
+
+            .stat-item {
+                background: #f8f9fa !important;
+            }
+
+            .stat-item__label {
+                color: #6c6c88 !important;
+            }
+
+            /* Section headers */
+            .section-header__label {
+                color: #6c5ce7 !important;
+            }
+
+            /* Pulse dot - hide in print */
+            .pulse {
+                display: none !important;
+            }
+
+            /* Download row in print */
+            .download-row {
+                padding-bottom: 12px !important;
+            }
+
+            /* Progress item values */
+            .progress-item__value {
+                color: #6c5ce7 !important;
+            }
+
+            /* Navbar brand logo hidden */
+            .navbar__logo {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Animated Background -->
+    <div class="bg-gradient"></div>
+    <div class="bg-orb bg-orb--1"></div>
+    <div class="bg-orb bg-orb--2"></div>
+    <div class="bg-orb bg-orb--3"></div>
+
+    <!-- ═════════════════════════════════════
+         NAVIGATION BAR
+         ═════════════════════════════════════ -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar__inner">
+            <a href="#" class="navbar__brand" id="brand-link">
+                <div class="navbar__logo">PQ</div>
+                <span class="navbar__name">Phạm Quốc Quân</span>
+            </a>
+
+            <button class="navbar__mobile-toggle" id="mobile-toggle" aria-label="Toggle menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+
+            <ul class="navbar__links" id="nav-links">
+                <li><button class="navbar__link active" data-page="intro">Giới thiệu</button></li>
+                <li><button class="navbar__link" data-page="projects">Nhiệm vụ</button></li>
+                <li><button class="navbar__link" data-page="summary">Tổng kết</button></li>
+            </ul>
+
+            <button class="print-btn" id="print-btn" title="Xuất PDF">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                Xuất PDF
+            </button>
+        </div>
+    </nav>
+
+    <!-- ═════════════════════════════════════
+         PAGE 1: GIỚI THIỆU
+         ═════════════════════════════════════ -->
+    <section class="page-section active" id="page-intro">
+        <div class="container">
+            <div class="hero">
+                <div class="hero__badge">
+                    <span class="pulse"></span>
+                    INT1008 — Học kỳ 2, 2025–2026
+                </div>
+                <h1 class="hero__title">
+                    Hồ sơ Học tập<br>
+                    <span class="gradient-text">Công nghệ số &amp; AI</span>
+                </h1>
+                <p class="hero__subtitle">
+                    Hành trình khám phá năng lực số, tư duy phương pháp luận và ứng dụng Trí tuệ nhân tạo có trách nhiệm trong học tập tại Trường Đại học Công nghệ — ĐHQGHN.
+                </p>
+
+                <div class="stats-bar reveal-stagger">
+                    <div class="stat-item reveal">
+                        <div class="stat-item__number">07</div>
+                        <div class="stat-item__label">Nhiệm vụ</div>
+                    </div>
+                    <div class="stat-item reveal">
+                        <div class="stat-item__number">06</div>
+                        <div class="stat-item__label">Kỹ năng số</div>
+                    </div>
+                    <div class="stat-item reveal">
+                        <div class="stat-item__number">05</div>
+                        <div class="stat-item__label">Công cụ AI</div>
+                    </div>
+                    <div class="stat-item reveal">
+                        <div class="stat-item__number">11</div>
+                        <div class="stat-item__label">Tài liệu đánh giá</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bio-card reveal">
+                <div class="bio-card__avatar">PQ</div>
+                <div class="bio-card__info">
+                    <h3>Phạm Quốc Quân</h3>
+                    <div class="bio-detail"><span class="label">MSSV:</span> 25020339</div>
+                    <div class="bio-detail"><span class="label">Ngành:</span> Công nghệ Thông tin — UET-VNU (Năm 1)</div>
+                    <div class="bio-detail"><span class="label">Sở thích:</span> Lập trình hệ thống, tối ưu hiệu năng phần cứng, nghiên cứu AI, đọc sách công nghệ</div>
+                </div>
+            </div>
+
+            <div class="info-grid reveal-stagger">
+                <div class="info-card reveal">
+                    <div class="info-card__icon info-card__icon--purple">📘</div>
+                    <h3 class="info-card__title">Mục tiêu học tập</h3>
+                    <p class="info-card__text">Xây dựng nền tảng tư duy khoa học máy tính vững chắc kết hợp phương pháp luận nghiên cứu nghiêm túc. Rèn luyện năng lực tự học, tiếp cận công nghệ số hiện đại và sử dụng AI như một công cụ hỗ trợ tư duy — không lạm dụng.</p>
+                </div>
+
+                <div class="info-card reveal">
+                    <div class="info-card__icon info-card__icon--green">🚀</div>
+                    <h3 class="info-card__title">Định hướng tương lai</h3>
+                    <p class="info-card__text">Tìm tòi sâu về Kỹ thuật phần mềm kết hợp Trí tuệ nhân tạo (AI-driven Software Engineering). Nghiên cứu các phương pháp lập trình tối ưu hiệu năng hệ thống phần cứng và tối ưu hóa trải nghiệm người dùng thông qua mô hình học sâu.</p>
+                </div>
+
+                <div class="info-card reveal" style="grid-column: 1 / -1;">
+                    <div class="info-card__icon info-card__icon--pink">🎯</div>
+                    <h3 class="info-card__title">Mục tiêu của Portfolio</h3>
+                    <p class="info-card__text">Hồ sơ này đóng vai trò như một lăng kính phản ánh chặng đường học tập tích cực, những kết quả bước đầu trong môn học. Đây là minh chứng cụ thể cho sự phát triển về cả tư duy lý luận học thuật lẫn kỹ năng thực hành công nghệ số của bản thân trong năm học đầu tiên tại UET-VNU.</p>
+                </div>
+            </div>
+
+            <div class="skills-section reveal">
+                <h3 class="skills-section__title">
+                    ⚡ Công nghệ &amp; Kỹ năng Đang Tiếp Cận
+                </h3>
+                <div class="skills-grid">
+                    <span class="skill-chip"><span class="skill-chip__dot" style="background: #e17055;"></span>Java</span>
+                    <span class="skill-chip"><span class="skill-chip__dot" style="background: #00b894;"></span>Python</span>
+                    <span class="skill-chip"><span class="skill-chip__dot" style="background: #6c5ce7;"></span>AI Prompting &amp; Engineering</span>
+                    <span class="skill-chip"><span class="skill-chip__dot" style="background: #fdcb6e;"></span>Linux &amp; Command Line</span>
+                    <span class="skill-chip"><span class="skill-chip__dot" style="background: #74b9ff;"></span>Git &amp; GitHub</span>
+                    <span class="skill-chip"><span class="skill-chip__dot" style="background: #fd79a8;"></span>Phương pháp Học thuật</span>
+                    <span class="skill-chip"><span class="skill-chip__dot" style="background: #00cec9;"></span>Deep Learning cơ bản</span>
+                    <span class="skill-chip"><span class="skill-chip__dot" style="background: #a29bfe;"></span>Đạo đức AI</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═════════════════════════════════════
+         PAGE 2: NHIỆM VỤ (7 BÀI TẬP)
+         ═════════════════════════════════════ -->
+    <section class="page-section" id="page-projects">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-header__label">Thực hành</div>
+                <h2 class="section-header__title">07 Nhiệm vụ Học tập</h2>
+                <p class="section-header__desc">Tổng hợp toàn bộ các bài tập thực hành từ quản lý dữ liệu cá nhân đến ứng dụng AI trong nghiên cứu khoa học.</p>
+            </div>
+
+            <div class="timeline">
+
+                <!-- ── BÀI 01 ── -->
+                <div class="timeline-item color-1 reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="project-card">
+                        <div class="project-card__header">
+                            <span class="project-card__number">Nhiệm vụ 01</span>
+                            <h3 class="project-card__title">Quản lý tệp tin và thư mục trên Windows</h3>
+                            <div class="project-card__objective">🎯 Mục tiêu: Thành thạo thao tác cơ bản trên File Explorer, xây dựng cấu trúc thư mục khoa học</div>
+                            <p class="project-card__summary">Thực hành thành thạo 12 bước thao tác cơ bản trên File Explorer: tạo cấu trúc thư mục, đổi tên, sao chép, di chuyển, xóa tệp, khôi phục dữ liệu từ Recycle Bin và xóa vĩnh viễn bằng Shift+Delete.</p>
+                            <div class="highlight-callout">
+                                <div class="highlight-callout__label">✦ Điểm nổi bật</div>
+                                <p class="highlight-callout__text">Hoàn thành 12 bước thực hành quản lý tệp tin, bao gồm tạo thư mục "ThucHanh_PhamQuocQuan", thực hành sao chép, di chuyển và xóa khôi phục dữ liệu an toàn.</p>
+                            </div>
+                        </div>
+                        <div class="tags">
+                            <span class="tag">Windows</span>
+                            <span class="tag">File Explorer</span>
+                            <span class="tag">Quản lý tệp</span>
+                            <span class="tag">Thực hành</span>
+                        </div>
+                        <div class="download-row">
+                            <a href="files/Bai01_QuanLyTepTin.docx" download class="download-btn">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                Tải báo cáo <span class="download-btn__size">(.docx)</span>
+                            </a>
+                        </div>
+                        <div class="project-details" id="details-1">
+                            <div class="project-details__inner">
+                                <ul class="detail-list">
+                                    <li>Tạo thư mục mới và tệp văn bản GhiChu.txt, sau đó đổi tên thành GhiChuQuanTrong.txt trên ổ đĩa D. Tạo thư mục con TaiLieu bên trong.</li>
+                                    <li>Thực hiện thành thạo các lệnh sao chép (Copy &amp; Paste, Ctrl+C/V) và di chuyển (Cut &amp; Paste, Ctrl+X/V) tệp tin vào thư mục con TaiLieu.</li>
+                                    <li>Thực hành xóa tệp vào Thùng rác (Recycle Bin), khôi phục lại tệp (Restore) và xóa vĩnh viễn bằng tổ hợp phím Shift + Delete.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <button class="toggle-btn" data-target="details-1">
+                            <span class="btn-label">Xem chi tiết</span>
+                            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ── BÀI 02 ── -->
+                <div class="timeline-item color-2 reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="project-card">
+                        <div class="project-card__header">
+                            <span class="project-card__number">Nhiệm vụ 02</span>
+                            <h3 class="project-card__title">Kỹ năng tìm kiếm và đánh giá thông tin học thuật</h3>
+                            <div class="project-card__objective">🎯 Mục tiêu: Khai thác CSDL học thuật, đánh giá độ tin cậy nguồn thông tin theo tiêu chí khoa học</div>
+                            <p class="project-card__summary">Nghiên cứu ảnh hưởng của kiến trúc L3 Cache và Bus Width đến hiệu năng lập trình đa luồng. Khai thác Google Scholar, IEEE Xplore, ACM, sách chuyên khảo và luận văn từ thư viện UET.</p>
+                            <div class="highlight-callout">
+                                <div class="highlight-callout__label">✦ Điểm nổi bật</div>
+                                <p class="highlight-callout__text">Thu thập và đánh giá 11 tài liệu (6 bài báo khoa học) từ 5 loại nguồn uy tín (2019–2024), sử dụng 5 tiêu chí đánh giá: tác giả, NXB, phương pháp, trích dẫn, tính cập nhật.</p>
+                            </div>
+                        </div>
+                        <div class="tags">
+                            <span class="tag">Google Scholar</span>
+                            <span class="tag">IEEE Xplore</span>
+                            <span class="tag">L3 Cache</span>
+                            <span class="tag">Multi-threading</span>
+                            <span class="tag">Harvard Citation</span>
+                        </div>
+                        <div class="download-row">
+                            <a href="files/Bai02_TimKiemThongTin.docx" download class="download-btn">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                Tải báo cáo <span class="download-btn__size">(.docx)</span>
+                            </a>
+                        </div>
+                        <div class="project-details" id="details-2">
+                            <div class="project-details__inner">
+                                <ul class="detail-list">
+                                    <li>Sử dụng truy vấn chuyên sâu: ("L3 Cache" OR "Cache Memory") AND "Multi-threading" AND "Bus Width" trên Google Scholar và IEEE Xplore.</li>
+                                    <li>Đánh giá độ tin cậy của mỗi nguồn qua 5 tiêu chí: chuyên môn tác giả, uy tín cơ quan xuất bản, phương pháp nghiên cứu, số lượt trích dẫn và tính cập nhật.</li>
+                                    <li>Xây dựng bảng tổng hợp chi tiết ưu/nhược điểm từng tài liệu, trình bày danh mục tham khảo theo đúng chuẩn Harvard.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <button class="toggle-btn" data-target="details-2">
+                            <span class="btn-label">Xem chi tiết</span>
+                            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ── BÀI 03 ── -->
+                <div class="timeline-item color-3 reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="project-card">
+                        <div class="project-card__header">
+                            <span class="project-card__number">Nhiệm vụ 03</span>
+                            <h3 class="project-card__title">Kỹ năng viết Prompt hiệu quả</h3>
+                            <div class="project-card__objective">🎯 Mục tiêu: Tối ưu hóa chất lượng đầu ra của LLMs bằng các kỹ thuật Prompt Engineering nâng cao</div>
+                            <p class="project-card__summary">Áp dụng kỹ thuật Role Prompting, Chain-of-Thought và Few-shot để giải quyết 3 tác vụ học tập: tóm tắt tài liệu phần cứng, giải thích khái niệm Maven, tạo câu hỏi Anki cho Giải tích 1.</p>
+                            <div class="highlight-callout">
+                                <div class="highlight-callout__label">✦ Điểm nổi bật</div>
+                                <p class="highlight-callout__text">Đề xuất khung nguyên tắc 6 bước C.R.E.A.T.E (Context, Role, Examples, Action steps, Tone, Evaluate) — giúp ứng dụng AI hiệu quả trong học tập.</p>
+                            </div>
+                        </div>
+                        <div class="tags">
+                            <span class="tag">Prompt Engineering</span>
+                            <span class="tag">LLMs</span>
+                            <span class="tag">ChatGPT</span>
+                            <span class="tag">C.R.E.A.T.E</span>
+                            <span class="tag">Chain-of-Thought</span>
+                        </div>
+                        <div class="download-row">
+                            <a href="files/Bai03_PromptHieuQua.docx" download class="download-btn">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                Tải báo cáo <span class="download-btn__size">(.docx)</span>
+                            </a>
+                        </div>
+                        <div class="project-details" id="details-3">
+                            <div class="project-details__inner">
+                                <ul class="detail-list">
+                                    <li>Thiết kế 3 phiên bản prompt (Cơ bản → Cải tiến → Nâng cao) cho từng tác vụ; phiên bản nâng cao gán vai "kỹ sư phần cứng" giúp ngôn từ AI chính xác hơn đáng kể.</li>
+                                    <li>Sử dụng kỹ thuật "Đóng vai" (Role-prompting) và "Chia nhỏ tư duy" (Chain-of-Thought) để ép LLM duy trì logic chặt chẽ, loại bỏ phản hồi hời hợt.</li>
+                                    <li>Kỹ thuật "Khống chế định dạng đầu ra" ép AI tạo thẻ Flashcard chuẩn cấu trúc CSV, tiết kiệm 100% thời gian tiền xử lý khi import vào Anki.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <button class="toggle-btn" data-target="details-3">
+                            <span class="btn-label">Xem chi tiết</span>
+                            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ── BÀI 04 ── -->
+                <div class="timeline-item color-4 reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="project-card">
+                        <div class="project-card__header">
+                            <span class="project-card__number">Nhiệm vụ 04</span>
+                            <h3 class="project-card__title">Kỹ năng làm việc nhóm và công cụ trực tuyến</h3>
+                            <div class="project-card__objective">🎯 Mục tiêu: Xây dựng quy trình cộng tác nhóm hiệu quả bằng các nền tảng số</div>
+                            <p class="project-card__summary">Ứng dụng hệ sinh thái 5 công cụ trực tuyến (Notion, Discord, Messenger, Google Docs, Google Drive) để tổ chức, quản lý và tối ưu quy trình dự án nhóm theo mô hình Kanban.</p>
+                            <div class="highlight-callout">
+                                <div class="highlight-callout__label">✦ Điểm nổi bật</div>
+                                <p class="highlight-callout__text">Tích hợp thành thạo 5 công cụ, duy trì &gt;10 lượt tương tác hỗ trợ/tuần, quản lý file 100% đúng quy chuẩn. Tự đánh giá đạt Mức 4 theo rubric.</p>
+                            </div>
+                        </div>
+                        <div class="tags">
+                            <span class="tag">Notion</span>
+                            <span class="tag">Discord</span>
+                            <span class="tag">Google Docs</span>
+                            <span class="tag">Kanban</span>
+                            <span class="tag">Quản lý dự án</span>
+                        </div>
+                        <div class="download-row">
+                            <a href="files/Bai04_LamViecNhom.docx" download class="download-btn">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                Tải báo cáo <span class="download-btn__size">(.docx)</span>
+                            </a>
+                        </div>
+                        <div class="project-details" id="details-4">
+                            <div class="project-details__inner">
+                                <ul class="detail-list">
+                                    <li>Quản lý tác vụ theo mô hình Kanban trên Notion, gán Tag cá nhân và cập nhật trạng thái thẻ công việc ít nhất 3 lần/tuần.</li>
+                                    <li>Duy trì tần suất tương tác hỗ trợ đồng đội cao (&gt;10 lượt/tuần) trên Discord và Messenger; tổng hợp Discussion Note hàng ngày.</li>
+                                    <li>Giải quyết xung đột dữ liệu trên Google Docs bằng chế độ "Suggesting" và phân chia Heading rõ ràng cho từng thành viên.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <button class="toggle-btn" data-target="details-4">
+                            <span class="btn-label">Xem chi tiết</span>
+                            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ── BÀI 05 ── -->
+                <div class="timeline-item color-5 reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="project-card">
+                        <div class="project-card__header">
+                            <span class="project-card__number">Nhiệm vụ 05</span>
+                            <h3 class="project-card__title">Sử dụng AI tạo sinh trong sáng tạo nội dung</h3>
+                            <div class="project-card__objective">🎯 Mục tiêu: Phối hợp nhiều công cụ Generative AI để sản xuất nội dung chất lượng cao</div>
+                            <p class="project-card__summary">Phối hợp ChatGPT, Claude Sonnet và Canva AI để sáng tạo bài viết chuyên sâu 1.500 từ về "Tác động của AI đến Tương lai Công việc". Quy trình 3 giai đoạn: Nghiên cứu → Viết nội dung → Thiết kế trực quan.</p>
+                            <div class="highlight-callout">
+                                <div class="highlight-callout__label">✦ Điểm nổi bật</div>
+                                <p class="highlight-callout__text">Tiết kiệm 50–60% thời gian (từ 7–10h xuống 3–4h). Bài viết cuối: ~45% từ AI + ~55% sáng tạo độc lập, ý tưởng cá nhân và bối cảnh Việt Nam.</p>
+                            </div>
+                        </div>
+                        <div class="tags">
+                            <span class="tag">ChatGPT</span>
+                            <span class="tag">Claude Sonnet</span>
+                            <span class="tag">Canva AI</span>
+                            <span class="tag">AI tạo sinh</span>
+                            <span class="tag">Sáng tạo nội dung</span>
+                        </div>
+                        <div class="download-row">
+                            <a href="files/Bai05_AITaoSinh.docx" download class="download-btn">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                Tải báo cáo <span class="download-btn__size">(.docx)</span>
+                            </a>
+                        </div>
+                        <div class="project-details" id="details-5">
+                            <div class="project-details__inner">
+                                <ul class="detail-list">
+                                    <li>ChatGPT: Lên đề cương tổng quan trong 5 phút, liệt kê thống kê và viết đoạn mở đầu. Đã xác minh lại số liệu từ WEF, McKinsey và ILO.</li>
+                                    <li>Claude Sonnet: Phát triển luận điểm sâu sắc, phân tích 3 ngành nghề bị ảnh hưởng bởi AI. Bổ sung ví dụ doanh nghiệp Việt Nam (VinAI, FPT AI).</li>
+                                    <li>Canva AI (Magic Design + Text to Image): Thiết kế infographic và hình ảnh minh họa chuyên nghiệp cho bài viết.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <button class="toggle-btn" data-target="details-5">
+                            <span class="btn-label">Xem chi tiết</span>
+                            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ── BÀI 06 ── -->
+                <div class="timeline-item color-6 reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="project-card">
+                        <div class="project-card__header">
+                            <span class="project-card__number">Nhiệm vụ 06</span>
+                            <h3 class="project-card__title">Chính sách và Đạo đức sử dụng AI trong học thuật</h3>
+                            <div class="project-card__objective">🎯 Mục tiêu: Xây dựng bộ nguyên tắc cá nhân về sử dụng AI có trách nhiệm trong học thuật</div>
+                            <p class="project-card__summary">Phân tích chính sách AI tại VNU/UET qua lăng kính Liêm chính học thuật. Thực hành phản biện đề xuất code từ GPT-4 cho bài toán Concurrency trong Hệ thống Đấu giá bằng Java.</p>
+                            <div class="highlight-callout">
+                                <div class="highlight-callout__label">✦ Điểm nổi bật</div>
+                                <p class="highlight-callout__text">Thiết lập bộ nguyên tắc cá nhân 5 điểm: Zero Trust, Tự chủ Core Logic, Hộp trắng, Bảo mật dữ liệu, Minh bạch tuyệt đối — để làm chủ AI có trách nhiệm.</p>
+                            </div>
+                        </div>
+                        <div class="tags">
+                            <span class="tag">Đạo đức AI</span>
+                            <span class="tag">Liêm chính học thuật</span>
+                            <span class="tag">Concurrency Java</span>
+                            <span class="tag">Optimistic Locking</span>
+                        </div>
+                        <div class="download-row">
+                            <a href="files/Bai06_DaoDucAI.pdf" download class="download-btn">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                Tải báo cáo <span class="download-btn__size">(.pdf)</span>
+                            </a>
+                        </div>
+                        <div class="project-details" id="details-6">
+                            <div class="project-details__inner">
+                                <ul class="detail-list">
+                                    <li>Chính sách VNU/UET khuyến khích dùng AI như kỹ năng số nhưng nghiêm cấm đạo văn và yêu cầu minh bạch trích dẫn (công cụ, phiên bản, phần sử dụng).</li>
+                                    <li>Phản biện GPT-4 khi đề xuất <code style="font-family:var(--font-mono);background:rgba(255,255,255,0.06);padding:2px 6px;border-radius:4px;font-size:0.82em;">synchronized</code> gây nghẽn cổ chai → tự điều chỉnh sang Optimistic Locking + Version Control bằng JPA/Hibernate.</li>
+                                    <li>Nhấn mạnh nguy cơ "teo cơ tư duy" (cognitive atrophy) nếu sinh viên lạm dụng AI để viết Core Logic mà không có quá trình chuyển hóa kiến thức.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <button class="toggle-btn" data-target="details-6">
+                            <span class="btn-label">Xem chi tiết</span>
+                            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ── BÀI 07 ── -->
+                <div class="timeline-item color-7 reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="project-card">
+                        <div class="project-card__header">
+                            <span class="project-card__number">Nhiệm vụ 07</span>
+                            <h3 class="project-card__title">Ứng dụng AI trong tổng quan tài liệu khoa học về Deep Learning</h3>
+                            <div class="project-card__objective">🎯 Mục tiêu: Ứng dụng công cụ AI (Elicit, Consensus) để tổng quan tài liệu khoa học một cách hiệu quả</div>
+                            <p class="project-card__summary">Sử dụng Elicit và Consensus để tổng hợp 5 bài báo khoa học so sánh hiệu quả CNN, ResNet và Vision Transformer (ViT) trong chẩn đoán ảnh y tế trên nhiều loại bệnh lý.</p>
+                            <div class="highlight-callout">
+                                <div class="highlight-callout__label">✦ Điểm nổi bật</div>
+                                <p class="highlight-callout__text">Kết luận: CNN hội tụ nhanh cho tập dữ liệu nhỏ (&lt;1.000 ảnh), ViT vượt trội khi dữ liệu lớn (&gt;5.000 ảnh). ResNet-50 đạt 98,37% trên X-quang ngực.</p>
+                            </div>
+                        </div>
+                        <div class="tags">
+                            <span class="tag">Deep Learning</span>
+                            <span class="tag">CNN</span>
+                            <span class="tag">Vision Transformer</span>
+                            <span class="tag">Ảnh y tế</span>
+                            <span class="tag">Elicit</span>
+                            <span class="tag">Consensus</span>
+                        </div>
+                        <div class="download-row">
+                            <a href="files/Bai07_DeepLearning.docx" download class="download-btn">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                Tải báo cáo <span class="download-btn__size">(.docx)</span>
+                            </a>
+                        </div>
+                        <div class="project-details" id="details-7">
+                            <div class="project-details__inner">
+                                <ul class="detail-list">
+                                    <li>Trích xuất và so sánh thông số từ 5 nghiên cứu ứng dụng AI vào ảnh X-quang, MRI u não, ung thư da, ảnh CT phổi và ung thư vú (histopathology).</li>
+                                    <li>ResNet-50 đạt 98,37% trên X-quang ngực (5.216 ảnh), ViT đạt 94% trên ảnh mô bệnh học (~8.000 ảnh) nhờ cơ chế attention.</li>
+                                    <li>Chỉ ra hạn chế: thiếu khả năng giải thích mô hình (interpretability), cần kiểm chứng trên dữ liệu lâm sàng thực tế trước khi triển khai y tế.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <button class="toggle-btn" data-target="details-7">
+                            <span class="btn-label">Xem chi tiết</span>
+                            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ═════════════════════════════════════
+         PAGE 3: TỔNG KẾT
+         ═════════════════════════════════════ -->
+    <section class="page-section" id="page-summary">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-header__label">Phản tư</div>
+                <h2 class="section-header__title">Tổng kết &amp; Đánh giá bản thân</h2>
+                <p class="section-header__desc">Nhìn lại hành trình, rút ra bài học và định hướng phát triển trong tương lai.</p>
+            </div>
+
+            <div class="reflection-card reveal">
+                <h3 class="reflection-card__title">Lời tự sự &amp; Đánh giá cá nhân</h3>
+                <p class="reflection-card__text">
+                    Là một sinh viên năm nhất ngành Công nghệ Thông tin tại UET-VNU, hành trình trải nghiệm qua 7 bài tập thực hành của môn học này đã mang lại cho em những bài học thực tế quý giá. Ban đầu, em chỉ nghĩ về công nghệ dưới góc độ lập trình khô khan, nhưng qua việc tìm hiểu từ quản lý tệp tin, kỹ năng tìm kiếm bài báo khoa học đến các kỹ thuật prompt nâng cao, em nhận ra rằng <strong style="color:var(--accent-secondary);">tư duy phương pháp luận mới là cốt lõi</strong>.
+                    <br><br>
+                    Việc tự xây dựng khung nguyên tắc C.R.E.A.T.E hay chủ động phản biện đề xuất code <code style="font-family:var(--font-mono);background:rgba(255,255,255,0.06);padding:2px 6px;border-radius:4px;font-size:0.88em;">synchronized</code> từ GPT-4 đã giúp em hiểu rõ giá trị của việc <strong style="color:var(--green);">làm chủ công cụ thay vì phụ thuộc</strong> hoàn toàn vào chúng. Em nhận thấy mình đã trưởng thành hơn rất nhiều trong cả khả năng làm việc nhóm trực tuyến và nhận thức về liêm chính học thuật.
+                    <br><br>
+                    Quá trình xây dựng Portfolio này cũng là một bài học quý giá: em phải hệ thống hóa lại toàn bộ 7 bài thực hành, rút trích những điểm cốt lõi từ hàng chục trang báo cáo, và trình bày chúng một cách mạch lạc trên một trang web duy nhất. Thách thức lớn nhất là <strong style="color:var(--orange);">cân bằng giữa tính thẩm mỹ và tính học thuật</strong> — làm sao để Portfolio vừa đẹp mắt, chuyên nghiệp, vừa phản ánh trung thực quá trình học tập. Những kiến thức này chắc chắn sẽ là bệ phóng quan trọng giúp em tự tin vững bước trong những năm học tiếp theo tại giảng đường đại học.
+                </p>
+            </div>
+
+            <div class="insights-grid reveal-stagger">
+                <div class="insight-card insight-card--green reveal">
+                    <div class="insight-card__icon">⭐</div>
+                    <h4 class="insight-card__title">Ấn tượng nhất</h4>
+                    <p class="insight-card__text">Sự kết hợp giữa tư duy độc lập của con người và năng lực tổng hợp thông tin của AI. Việc thiết lập prompt có cấu trúc rõ ràng (khung C.R.E.A.T.E) đã mở ra phương thức tự học vô cùng chủ động và tinh gọn.</p>
+                </div>
+
+                <div class="insight-card insight-card--blue reveal">
+                    <div class="insight-card__icon">📂</div>
+                    <h4 class="insight-card__title">Kỹ năng hữu ích</h4>
+                    <p class="insight-card__text">Kỹ năng tra cứu, đánh giá chéo tài liệu theo chuẩn Harvard và phối hợp nhịp nhàng trên hệ sinh thái Notion, Discord giúp quản lý công việc nhóm khoa học hơn bao giờ hết.</p>
+                </div>
+
+                <div class="insight-card insight-card--orange reveal">
+                    <div class="insight-card__icon">⚠️</div>
+                    <h4 class="insight-card__title">Thách thức lớn</h4>
+                    <p class="insight-card__text">Lằn ranh đỏ của Liêm chính học thuật — tránh "teo cơ tư duy" do ỷ lại vào AI. Khi xây dựng Portfolio, thách thức là hệ thống hóa 7 bài tập thành một câu chuyện mạch lạc, đồng thời cân bằng tính thẩm mỹ với tính chính xác học thuật.</p>
+                </div>
+            </div>
+
+            <div class="progress-section reveal">
+                <h3 class="progress-section__title">📊 Mức độ phát triển kỹ năng qua môn học</h3>
+
+                <div class="progress-item">
+                    <div class="progress-item__header">
+                        <span class="progress-item__label">Quản lý dữ liệu cá nhân</span>
+                        <span class="progress-item__value">90%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-bar__fill progress-bar__fill--purple" data-width="90"></div>
+                    </div>
+                </div>
+
+                <div class="progress-item">
+                    <div class="progress-item__header">
+                        <span class="progress-item__label">Tìm kiếm &amp; đánh giá thông tin</span>
+                        <span class="progress-item__value">85%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-bar__fill progress-bar__fill--green" data-width="85"></div>
+                    </div>
+                </div>
+
+                <div class="progress-item">
+                    <div class="progress-item__header">
+                        <span class="progress-item__label">Prompt Engineering &amp; AI</span>
+                        <span class="progress-item__value">88%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-bar__fill progress-bar__fill--pink" data-width="88"></div>
+                    </div>
+                </div>
+
+                <div class="progress-item">
+                    <div class="progress-item__header">
+                        <span class="progress-item__label">Cộng tác nhóm trực tuyến</span>
+                        <span class="progress-item__value">92%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-bar__fill progress-bar__fill--blue" data-width="92"></div>
+                    </div>
+                </div>
+
+                <div class="progress-item">
+                    <div class="progress-item__header">
+                        <span class="progress-item__label">Đạo đức &amp; trách nhiệm AI</span>
+                        <span class="progress-item__value">95%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-bar__fill progress-bar__fill--orange" data-width="95"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reflection-card reveal" style="margin-top: 32px;">
+                <h3 class="reflection-card__title">🛠️ Trải nghiệm xây dựng Portfolio</h3>
+                <p class="reflection-card__text">
+                    Quá trình tạo Portfolio là lần đầu tiên em thử xây dựng một sản phẩm web hoàn chỉnh để trình bày thành quả học tập. Những <strong style="color:var(--orange);">thách thức chính</strong> gặp phải:
+                    <br><br>
+                    • <strong>Hệ thống hóa nội dung:</strong> Phải đọc lại toàn bộ 7 báo cáo, rút trích ý cốt lõi và trình bày ngắn gọn mà vẫn đảm bảo chiều sâu — đây là kỹ năng tóm tắt thực sự hữu ích.
+                    <br>
+                    • <strong>Thiết kế giao diện:</strong> Cân bằng giữa tính thẩm mỹ (đẹp mắt, chuyên nghiệp) và tính khoa học (cấu trúc rõ ràng, dễ điều hướng). Em đã chọn phong cách dark theme hiện đại với glassmorphism.
+                    <br>
+                    • <strong>Tổ chức file đính kèm:</strong> Đổi tên file bỏ dấu tiếng Việt, sắp xếp vào thư mục riêng để tương thích khi deploy lên GitHub Pages.
+                    <br><br>
+                    <strong style="color:var(--green);">Điều tâm đắc nhất:</strong> Khi nhìn lại tổng thể Portfolio, em cảm nhận rõ sự trưởng thành qua từng nhiệm vụ — từ thao tác cơ bản (quản lý tệp tin) đến tư duy phức tạp (phản biện AI, đạo đức số). Chính quá trình xây dựng Portfolio đã giúp em nhận ra mình đã tiến bộ nhiều hơn so với suy nghĩ ban đầu.
+                </p>
+            </div>
+
+            <div class="reflection-card reveal" style="margin-top: 32px;">
+                <h3 class="reflection-card__title">🔮 Kế hoạch áp dụng kỹ năng trong tương lai</h3>
+                <p class="reflection-card__text">
+                    <strong style="color:var(--accent-secondary);">1. Prompt Engineering trong lập trình:</strong> Tiếp tục sử dụng khung C.R.E.A.T.E để tối ưu việc tương tác với AI khi debug code, viết unit test và refactor hệ thống phần mềm — luôn phản biện kết quả trước khi tích hợp.
+                    <br><br>
+                    <strong style="color:var(--green);">2. Nghiên cứu khoa học:</strong> Áp dụng kỹ năng tìm kiếm nâng cao (toán tử Boolean, đánh giá 5 tiêu chí) vào các đồ án chuyên ngành. Kết hợp Elicit/Consensus để tổng quan tài liệu nhanh, tiết kiệm thời gian cho phân tích sâu.
+                    <br><br>
+                    <strong style="color:var(--blue);">3. Làm việc nhóm chuyên nghiệp:</strong> Mở rộng mô hình Kanban trên Notion cho các dự án lập trình nhóm, tích hợp thêm GitHub Projects để theo dõi sprint và code review.
+                    <br><br>
+                    <strong style="color:var(--orange);">4. Đạo đức số:</strong> Duy trì bộ nguyên tắc 5 điểm (Zero Trust, Tự chủ Core Logic, Hộp trắng, Bảo mật, Minh bạch) xuyên suốt quá trình học tập và thực tập — coi đây là kim chỉ nam khi sử dụng AI trong mọi bối cảnh.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═════════════════════════════════════
+         FOOTER
+         ═════════════════════════════════════ -->
+    <footer class="site-footer">
+        <p class="site-footer__text">© 2026 <span>Phạm Quốc Quân</span> · Nhập môn Công nghệ số và Ứng dụng Trí tuệ nhân tạo (INT1008)</p>
+        <p class="site-footer__tech">Được xây dựng bằng HTML, CSS &amp; JavaScript</p>
+    </footer>
+
+    <!-- ═════════════════════════════════════
+         JAVASCRIPT
+         ═════════════════════════════════════ -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            /* ── Page Navigation ── */
+            const navLinks = document.querySelectorAll('.navbar__link');
+            const pages = document.querySelectorAll('.page-section');
+            const brandLink = document.getElementById('brand-link');
+
+            function switchPage(pageId) {
+                pages.forEach(p => p.classList.remove('active'));
+                navLinks.forEach(l => l.classList.remove('active'));
+
+                const target = document.getElementById('page-' + pageId);
+                const link = document.querySelector(`[data-page="${pageId}"]`);
+
+                if (target) target.classList.add('active');
+                if (link) link.classList.add('active');
+
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                // Trigger reveal animations for the new page
+                setTimeout(() => triggerRevealAnimations(), 100);
+                // Trigger progress bar animation if summary page
+                if (pageId === 'summary') {
+                    setTimeout(() => animateProgressBars(), 300);
+                }
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    switchPage(link.dataset.page);
+                    // Close mobile menu
+                    document.getElementById('nav-links').classList.remove('open');
+                });
+            });
+
+            brandLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                switchPage('intro');
+            });
+
+            /* ── Mobile Menu Toggle ── */
+            document.getElementById('mobile-toggle').addEventListener('click', () => {
+                document.getElementById('nav-links').classList.toggle('open');
+            });
+
+            /* ── Navbar scroll effect ── */
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                navbar.classList.toggle('scrolled', window.scrollY > 20);
+            }, { passive: true });
+
+            /* ── Card Details Toggle ── */
+            document.querySelectorAll('.toggle-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const target = document.getElementById(btn.dataset.target);
+                    const label = btn.querySelector('.btn-label');
+                    const isExpanded = target.classList.toggle('expanded');
+
+                    btn.classList.toggle('open', isExpanded);
+                    label.textContent = isExpanded ? 'Thu gọn' : 'Xem chi tiết';
+
+                    if (isExpanded) {
+                        target.style.maxHeight = target.scrollHeight + 'px';
+                    } else {
+                        target.style.maxHeight = null;
+                    }
+                });
+            });
+
+            /* ── Scroll Reveal (Intersection Observer) ── */
+            function triggerRevealAnimations() {
+                const reveals = document.querySelectorAll('.page-section.active .reveal');
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+
+                reveals.forEach(el => {
+                    el.classList.remove('visible');
+                    observer.observe(el);
+                });
+            }
+
+            /* ── Progress Bar Animation ── */
+            function animateProgressBars() {
+                document.querySelectorAll('.progress-bar__fill').forEach(bar => {
+                    const width = bar.dataset.width;
+                    bar.style.width = width + '%';
+                });
+            }
+
+            /* ── Print / Export PDF ── */
+            document.getElementById('print-btn').addEventListener('click', () => {
+                // Fill all progress bars before printing
+                animateProgressBars();
+
+                // Expand all detail sections
+                document.querySelectorAll('.project-details').forEach(d => {
+                    d.classList.add('expanded');
+                    d.style.maxHeight = 'none';
+                });
+
+                // Make all reveals visible
+                document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+
+                // Small delay then print
+                setTimeout(() => window.print(), 300);
+            });
+
+            // Initial reveal
+            triggerRevealAnimations();
+        });
+    </script>
+</body>
+</html>
